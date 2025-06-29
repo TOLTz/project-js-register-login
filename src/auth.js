@@ -2,16 +2,16 @@ import { betterAuth } from 'better-auth';
 
 import databaseService from './database/database.js';
 
-const dbAdapter = databaseService.getAdapter()
+const dbAdapter = databaseService.getAdapter();
 
-const auth = new betterAuth({
-    database: dbAdapter,
-    table: 'users_auth'
+const auth = betterAuth({
+  tableName: 'users_table',
+  dbAdapter: dbAdapter,
 });
 
 async function initializeAuth() {
-    await auth.init();
-    console.log('Biblioteca de autenticação inicializada');
+  console.log('Biblioteca de autenticação inicializada');
+  return auth;
 }
-    
-export {auth, initializeAuth};
+
+export { auth, initializeAuth };

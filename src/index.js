@@ -20,25 +20,26 @@ app.use(
     swaggerOptions: {
       spec: swaggerSpec,
     },
-  })
+  }),
 );
-
 
 app.use(registerRouter.routes()).use(registerRouter.allowedMethods());
 app.use(loginRouter.routes()).use(loginRouter.allowedMethods());
 
 const startServer = async () => {
-    try {
-        await initializeAuth();
+  try {
+    await initializeAuth();
 
-        app.listen(PORT, () => {
-            console.log(`Servidor rodando na porta ${PORT}`);
-            console.log(`Documentação da API disponível em http://localhost:${PORT}/docs`);
-        });
-    } catch (error) {
-        console.error("Falha ao inicializar a aplicação:", error);
-        process.exit(1);
-    }
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+      console.log(
+        `Documentação da API disponível em http://localhost:${PORT}/docs`,
+      );
+    });
+  } catch (error) {
+    console.error('Falha ao inicializar a aplicação:', error);
+    process.exit(1);
+  }
 };
 
 startServer();

@@ -1,6 +1,4 @@
-import databaseService from '../database/database';
 import Router from 'koa-router';
-import auth from '../auth';
 
 const loginRouter = new Router();
 
