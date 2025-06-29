@@ -5,7 +5,7 @@ import { koaSwagger } from 'koa2-swagger-ui';
 import registerRouter from './routers/register.js';
 import loginRouter from './routers/login.js';
 
-import swaggerSpec from './swagger.js';
+import swaggerSpec from './swagger/swagger.js';
 
 import { initializeAuth } from './auth.js';
 

@@ -3,6 +3,37 @@ import {auth} from '../auth.js';
 
 const router = new Router();
 
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Registrar novo usuário
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               name:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Usuário registrado com sucesso
+ *       400:
+ *         description: Dados inválidos
+ *       409:
+ *         description: Usuário já existe
+ */
 router.post('/register', async (ctx) => {
     const {email, password, name} = ctx.request.body;
     

@@ -3,7 +3,26 @@ import { auth } from '../auth.js';
 
 const loginRouter = new Router();
 
-// Route para login
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Login user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ */
 loginRouter.post('/login', async (ctx) => {
   const { username, email, password } = ctx.request.body;
 
