@@ -1,12 +1,66 @@
 import { betterAuth } from 'better-auth';
+import Database from 'better-sqlite3';
 
-import databaseService from './database/database.js';
+// Criar o banco de dados
+const db = new Database('database.db');
 
-const dbAdapter = databaseService.getAdapter();
+// Criar as tabelas necessárias para o better-auth
+db.exec(`
+  CREATE TABLE IF NOT EXISTS user (
+    id TEXT PRIMARY KEY,
+    email TEXT UNIQUE NOT NULL,
+    emailVerified BOOLEAN DEFAULT FALSE,
+    name TEXT,
+    image TEXT,
+    createdAt INTEGER DEFAULT (strftime('%s', 'now')),
+    updatedAt INTEGER DEFAULT (strftime('%s', 'now'))
+  );
 
+  CREATE TABLE IF NOT EXISTS session (
+    id TEXT PRIMARY KEY,
+    userId TEXT NOT NULL,
+    expiresAt INTEGER NOT NULL,
+    token TEXT,
+    ipAddress TEXT,
+    userAgent TEXT,
+    createdAt INTEGER DEFAULT (strftime('%s', 'now')),
+    updatedAt INTEGER DEFAULT (strftime('%s', 'now')),
+    FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE
+  );
+
+  CREATE TABLE IF NOT EXISTS account (
+    id TEXT PRIMARY KEY,
+    userId TEXT NOT NULL,
+    accountId TEXT NOT NULL,
+    providerId TEXT NOT NULL,
+    accessToken TEXT,
+    refreshToken TEXT,
+    expiresAt INTEGER,
+    scope TEXT,
+    password TEXT,
+    createdAt INTEGER DEFAULT (strftime('%s', 'now')),
+    updatedAt INTEGER DEFAULT (strftime('%s', 'now')),
+    FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE
+  );
+
+  CREATE TABLE IF NOT EXISTS verification (
+    id TEXT PRIMARY KEY,
+    identifier TEXT NOT NULL,
+    value TEXT NOT NULL,
+    expiresAt INTEGER NOT NULL,
+    createdAt INTEGER DEFAULT (strftime('%s', 'now')),
+    updatedAt INTEGER DEFAULT (strftime('%s', 'now'))
+  );
+`);
+
+// Configuração básica do better-auth
 const auth = betterAuth({
-  tableName: 'users_table',
-  dbAdapter: dbAdapter,
+  database: db,
+  emailAndPassword: {
+    enabled: true,
+  },
+  baseURL: 'http://localhost:3000',
+  secret: 'your-secret-key-here' // Em produção, use uma variável de ambiente
 });
 
 async function initializeAuth() {
