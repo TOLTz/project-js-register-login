@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import { auth } from '../auth.js';
+import auth from '../auth.js';
 
 const loginRouter = new Router();
 
@@ -17,7 +17,7 @@ const loginRouter = new Router();
  *           schema:
  *             type: object
  *             properties:
- *               email:  
+ *               email:
  *                type: string
  *               password:
  *                 type: string

@@ -7,8 +7,6 @@ import loginRouter from './routers/login.js';
 
 import swaggerSpec from './swagger/swagger.js';
 
-import { initializeAuth } from './auth.js';
-
 const app = new Koa();
 const PORT = 3000;
 
@@ -28,8 +26,6 @@ app.use(loginRouter.routes()).use(loginRouter.allowedMethods());
 
 const startServer = async () => {
   try {
-    await initializeAuth();
-
     app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`);
       console.log(
