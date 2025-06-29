@@ -33,6 +33,8 @@ const router = new Router();
  *         description: Dados inválidos
  *       409:
  *         description: Usuário já existe
+ * *     500:
+ *        description: Erro interno do servidor
  */
 router.post('/register', async (ctx) => {
     const {email, password, name} = ctx.request.body;
@@ -66,7 +68,7 @@ router.post('/register', async (ctx) => {
             ctx.status = 409;
             ctx.body = {message: 'Usuário já existe'};
         } else {
-            ctx.status = 400;
+            ctx.status = 500;
             ctx.body = {message: error.message || 'Erro ao registrar usuário'};
         }
     }

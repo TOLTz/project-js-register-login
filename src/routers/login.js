@@ -8,6 +8,8 @@ const loginRouter = new Router();
  * /login:
  *   post:
  *     summary: Login user
+ *     tags:
+ *      - Auth
  *     requestBody:
  *       required: true
  *       content:
@@ -15,13 +17,17 @@ const loginRouter = new Router();
  *           schema:
  *             type: object
  *             properties:
- *               username:
- *                 type: string
+ *               email:  
+ *                type: string
  *               password:
  *                 type: string
  *     responses:
  *       200:
  *         description: Login successful
+ * *     400:
+ *        description: Bad Request - Missing email or password
+ * *     500:
+ *        description: Internal Server Error - Unexpected error during login
  */
 loginRouter.post('/login', async (ctx) => {
   const { username, email, password } = ctx.request.body;
