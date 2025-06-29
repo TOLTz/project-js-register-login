@@ -22,11 +22,11 @@ const loginRouter = new Router();
  *               password:
  *                 type: string
  *     responses:
- *       200:
+ *     200:
  *         description: Login successful
- * *     400:
+ *     400:
  *        description: Bad Request - Missing email or password
- * *     500:
+ *     500:
  *        description: Internal Server Error - Unexpected error during login
  */
 loginRouter.post('/login', async (ctx) => {

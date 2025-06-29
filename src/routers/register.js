@@ -27,13 +27,13 @@ const router = new Router();
  *               name:
  *                 type: string
  *     responses:
- *       201:
+ *      201:
  *         description: Usuário registrado com sucesso
- *       400:
+ *      400:
  *         description: Dados inválidos
- *       409:
+ *      409:
  *         description: Usuário já existe
- * *     500:
+ *      500:
  *        description: Erro interno do servidor
  */
 router.post('/register', async (ctx) => {
